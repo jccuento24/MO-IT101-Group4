@@ -21,9 +21,12 @@ package com.mycompany.motorphpayrollsystem.java;
  * 4. File Handling: Uses BufferedReader for CSV processing.
  * ============================================================================
  */
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+//==============IMPORT STATEMENTS================
+//This is needed for reading CSV files and interacting with the user.
+import java.io.BufferedReader; // Reads text from files line by line.
+import java.io.FileReader; // Opens a file from disk
+import java.io.IOException; // Handles error
 import java.util.Scanner;
 
 public class MotorPHPayrollSystem {
