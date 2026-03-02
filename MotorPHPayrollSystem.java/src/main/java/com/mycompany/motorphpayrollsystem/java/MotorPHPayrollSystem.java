@@ -11,7 +11,7 @@ package com.mycompany.motorphpayrollsystem.java;
  * ============================================================================
  * MOTORPH BASIC PAYROLL SYSTEM
  * * DESCRIPTION:
- * This program manages employee information and attendance records for 
+ * This program manages employee information and attendance records for MotorPH
  * It calculates monthly salaries from June to December across two cutoffs.
  * * RULES APPLIED:
  * 1. No Object-Oriented Programming (OOP) - strictly methods and arrays.
