@@ -25,9 +25,9 @@ package com.mycompany.motorphpayrollsystem.java;
 //==============IMPORT STATEMENTS================
 //This is needed for reading CSV files and interacting with the user.
 import java.io.BufferedReader; // Reads text from files line by line.
-import java.io.FileReader; // Opens a file from disk
+import java.io.FileReader; // Opens a file
 import java.io.IOException; // Handles error
-import java.util.Scanner;
+import java.util.Scanner; //
 
 public class MotorPHPayrollSystem {
 
@@ -35,7 +35,7 @@ public class MotorPHPayrollSystem {
     static final int MAX_EMP = 100;
     static final int MAX_ATT = 8000;
 
-    // Parallel Arrays to store Employee Data (Basic Data Structure)
+    // Parallel Arrays to store Employee Data
     static String[] empID = new String[MAX_EMP];
     static String[] empName = new String[MAX_EMP];
     static String[] empBday = new String[MAX_EMP];
