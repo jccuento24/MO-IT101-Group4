@@ -27,73 +27,81 @@ package com.mycompany.motorphpayrollsystem.java;
 import java.io.BufferedReader; // Reads text from files line by line.
 import java.io.FileReader; // Opens a file
 import java.io.IOException; // Handles error
-import java.util.Scanner; //
+import java.util.Scanner; // Reads user input
 
-public class MotorPHPayrollSystem {
+// ================= MAIN CLASS =================
+public class MotorPHPayrollSystem { 
 
     // Global Constants for Array Capacities
-    static final int MAX_EMP = 100;
-    static final int MAX_ATT = 8000;
+    static final int MAX_EMP = 100; // Maximum number of employees supported
+    static final int MAX_ATT = 8000; // Maximum number of attendance records
 
     // Parallel Arrays to store Employee Data
-    static String[] empID = new String[MAX_EMP];
-    static String[] empName = new String[MAX_EMP];
-    static String[] empBday = new String[MAX_EMP];
-    static double[] empRate = new double[MAX_EMP];
-    static int empTotal = 0;
+    static String[] empID = new String[MAX_EMP]; // Employee ID
+    static String[] empName = new String[MAX_EMP]; // Employee full names
+    static String[] empBday = new String[MAX_EMP]; // Employee birthdays
+    static double[] empRate = new double[MAX_EMP]; // Employee hourly rates
+    static int empTotal = 0;                       // Current total employee count
 
     // Parallel Arrays for Attendance Logs
-    static String[] attID = new String[MAX_ATT];
-    static String[] attDate = new String[MAX_ATT];
-    static String[] attIn = new String[MAX_ATT];
-    static String[] attOut = new String[MAX_ATT];
-    static int attTotal = 0;
-    private static String line;
+    static String[] attID = new String[MAX_ATT]; // Employee numbers for attendance records
+    static String[] attDate = new String[MAX_ATT]; // Date of attendance
+    static String[] attIn = new String[MAX_ATT]; // Clock-in time
+    static String[] attOut = new String[MAX_ATT]; // Clock-out time
+    static int attTotal = 0;                      // Current total attendance records
+    private static String line;                   // Temporary variable for reading file lines
 
+
+    // ================= MAIN METHOD =================
     public static void main(String[] args) {
         // Initialize data by reading CSV files
-        loadEmployees("employees.csv");
-        loadAttendance("attendance.csv");
+        loadEmployees("employees.csv"); // Loads employee data from CSV
+        loadAttendance("attendance.csv"); // Loads attendance data from CSV
 
-        Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in); // Scanner object to read console input
 
         // 1. LOGIN SEQUENCE
         System.out.println("------------------------------------------");
         System.out.println("   Welcome to MotorPH Payroll System      ");
         System.out.println("------------------------------------------");
         System.out.print("Username: ");
-        String user = input.nextLine();
+        String user = input.nextLine(); // Reads the username input
         System.out.print("Password: ");
-        String pass = input.nextLine();
+        String pass = input.nextLine(); // Reads the password input
 
-        // Validate Credentials
+        // Validate login Credentials
         if (pass.equals("12345") && (user.equals("employee") || user.equals("payroll_staff"))) {
+        // This line checks if the entered password and username matches the given values.
             if (user.equals("employee")) {
-                employeeRole(input);
+                employeeRole(input); // This calls the employee menu
             } else {
-                payrollRole(input);
+                payrollRole(input); // This calls the payroll staff menu
             }
         } else {
+            // Informs user if login details entered is incorrect.
             System.out.println("Incorrect username and/or password.");
         }
-
+        // This closes the scanner.
         input.close();
     }
 
     // ==========================================
     // ROLE: EMPLOYEE
     // ==========================================
+    // Displays personal info for employees.
     public static void employeeRole(Scanner sc) {
         System.out.print("\nEnter employee number: ");
-        String idSearch = sc.nextLine();
-        int index = findEmp(idSearch);
+        String idSearch = sc.nextLine(); // Get employee ID
+        int index = findEmp(idSearch); // Find index in parallel arrays
 
         if (index != -1) {
+            // This displays the employee information
             System.out.println("\n--- Employee Details ---");
             System.out.println("Employee Number: " + empID[index]);
             System.out.println("Employee Name:   " + empName[index]);
             System.out.println("Birthday:        " + empBday[index]);
         } else {
+            // This prints if the employee ID is not found.
             System.out.println("Employee number does not exist.");
         }
     }
@@ -101,33 +109,39 @@ public class MotorPHPayrollSystem {
     // ==========================================
     // ROLE: PAYROLL STAFF
     // ==========================================
+    // Staff can process payroll for one or all employees.
     public static void payrollRole(Scanner sc) {
         System.out.println("\n--- Payroll Staff Menu ---");
         System.out.println("1. Process Payroll");
         System.out.println("2. Exit");
         System.out.print("Select choice: ");
-        int choice = sc.nextInt();
+        int choice = sc.nextInt(); // Read choices
         sc.nextLine(); // clear buffer
-
+        
+        // This checks if the user selected the first option from the main menu.
         if (choice == 1) {
+            // Display the submenu options for payroll processing.
             System.out.println("\n[1] One employee");
             System.out.println("[2] All employees");
             System.out.print("Choice: ");
-            int sub = sc.nextInt();
-            sc.nextLine();
+            int sub = sc.nextInt(); // This captures the user's submenu selection.
+            sc.nextLine(); // This prevents skipping future inputs
 
+            // 1. This process payroll for a specific individual.
             if (sub == 1) {
                 System.out.print("Enter employee number: ");
-                String id = sc.nextLine();
-                int index = findEmp(id);
-                if (index != -1) {
-                    processPayroll(index);
+                String id = sc.nextLine(); // This gets the ID to support for.
+                int index = findEmp(id); // This looks for the ID in the system and get its position
+                if (index != -1) {     // If index is not -1, the employee was found.
+                    processPayroll(index);  // Runs the payroll.
                 } else {
+                    // This prints if employee ID doesn't match any records.
                     System.out.println("Employee number does not exist.");
                 }
-            } else if (sub == 2) {
+            // 2. This process payroll for every employee in the system.
+            } else if (sub == 2) { 
                 for (int i = 0; i < empTotal; i++) {
-                    processPayroll(i);
+                    processPayroll(i); // Runs payroll logic for the current employee in the loop
                 }
             }
         }
@@ -136,21 +150,27 @@ public class MotorPHPayrollSystem {
     // ==========================================
     // PAYROLL PROCESSING ALGORITHM
     // ==========================================
+    // Handles monthly payroll, hours, gross/net salary & deductions
     public static void processPayroll(int idx) {
         System.out.println("\n****************************************");
-        System.out.println("Employee #: " + empID[idx]);
-        System.out.println("Name: " + empName[idx]);
-        System.out.println("Birthday: " + empBday[idx]);
+        System.out.println("Employee #: " + empID[index]);
+        System.out.println("Name: " + empName[index]);
+        System.out.println("Birthday: " + empBday[index]);
 
         // Process months June (6) to December (12)
         for (int m = 6; m <= 12; m++) {
-            // Cutoff 1: Day 1-15
+            // 1st Cutoff: Day 1-15
+            // m  - Months
+            // h1 - Total hours during 1st half.
+            // g1 - Gross Salary for the first cutoff.
             double h1 = getHours(empID[idx], m, 1, 15);
-            double g1 = h1 * empRate[idx];
+            double g1 = h1 * empRate[idx];  // Gross salary for the 1st cutoff.
 
-            // Cutoff 2: Day 16-31
+            // 2nd Cutoff: Day 16-31
+            // h2 - Total hours during 2nd half.
+            // g2 - Gross Salary for the second cutoff.
             double h2 = getHours(empID[idx], m, 16, 31);
-            double g2 = h2 * empRate[idx];
+            double g2 = h2 * empRate[idx]; // Gross salary for the 2nd cutoff.
 
             // 1st Cutoff Output
             System.out.println("\nCutoff: " + m + "/01 to " + m + "/15");
