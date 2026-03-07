@@ -1,3 +1,2 @@
 # MotorPH-Payroll-System
 Payroll system for MotorPH employees.
-https://docs.google.com/document/d/1b_dizCI5z_uKQFZdMstXlx1mwzIDUSXlNLmp4lvfDAw/edit?fbclid=IwY2xjawQY9_tleHRuA2FlbQIxMABicmlkETFQaW9IdFN4RlZHT2daWERnc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHrvP0nierVm4nST1YErJ3WNBqC_XiJLbVXnb1DXUEkKBlk1w0cfJuNYyD4dw_aem_18dldlnJcfCnKNAthWkdyA&tab=t.0
