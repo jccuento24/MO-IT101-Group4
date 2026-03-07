@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 // ================= PACKAGE DECLARATION =================
 // This tells Java which folder (package) this class belongs to.
 // NetBeans automatically creates this when you create a new project.
@@ -13,12 +9,7 @@ package com.mycompany.motorphpayrollsystem.java;
  * * DESCRIPTION:
  * This program manages employee information and attendance records for MotorPH
  * It calculates monthly salaries from June to December across two cutoffs.
- * * RULES APPLIED:
- * 1. No Object-Oriented Programming (OOP) - strictly methods and arrays.
- * 2. Time Logic: Only counts hours between 08:00 AM and 05:00 PM.
- * 3. Deductions: SSS, PhilHealth, Pag-IBIG, and Tax are computed after 
- * combining the 1st and 2nd cutoff gross salaries.
- * 4. File Handling: Uses BufferedReader for CSV processing.
+ * It applies government deductions at the end of the 2nd cutoff.
  * ============================================================================
  */
 
@@ -148,7 +139,7 @@ public class MotorPHPayrollSystem {
     }
 
     // ==========================================
-    // PAYROLL PROCESSING ALGORITHM
+    // PAYROLL PROCESSING
     // ==========================================
     // Handles monthly payroll, hours, gross/net salary & deductions
     public static void processPayroll(int idx) {
@@ -180,16 +171,17 @@ public class MotorPHPayrollSystem {
 
             // Calculation of Government Deductions (Applied on 2nd Cutoff)
             double totalGross = g1 + g2;
-            double sss = computeSSS(totalGross);
-            double phil = computePhilHealth(totalGross);
-            double pagibig = computePagibig(totalGross);
-            double taxable = totalGross - (sss + phil + pagibig);
-            double tax = computeTax(taxable);
+            double sss = computeSSS(totalGross); // Computes SSS contribution.
+            double phil = computePhilHealth(totalGross); // Computes Philhealth contribution.
+            double pagibig = computePagibig(totalGross); // Computes Pagibig contribution.
+            double taxable = totalGross - (sss + phil + pagibig); // Computes the taxable amount for computing the withholding tax.
+            double tax = computeTax(taxable); // Computes withholding tax.
 
-            double totalDed = sss + phil + pagibig + tax;
-            double net2 = g2 - totalDed;
+            double totalDed = sss + phil + pagibig + tax; // Computes total deductions.
+            double net2 = g2 - totalDed; // Computes the net salary after all deductions.
 
             // 2nd Cutoff Output
+            // This prints the final payroll summary of the month.
             System.out.println("\nCutoff: " + m + "/16 to " + m + "/end");
             System.out.println("Total Hours: " + h2);
             System.out.println("Gross Salary: " + g2);
