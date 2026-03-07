@@ -70,3 +70,9 @@ Payroll staff have administrative access that allows them to process payroll rep
 The system also calculates government-mandated deductions including SSS, PhilHealth, Pag-IBIG, and withholding tax. After deductions are applied, the program generates a payroll summary showing the employee's gross pay, deductions, and net pay for each month.
 
 This system helps automate payroll calculations and ensures that employee salary records are processed accurately using attendance data.
+
+—-----------------------------------------------------------------------------------------------------------------------------
+
+**Project Plan Link**
+
+https://docs.google.com/spreadsheets/d/1riCqJi72GK1pGyXxDrVCekdcFKb3m5W7AhzzZ9tbbyI/edit?usp=sharing
