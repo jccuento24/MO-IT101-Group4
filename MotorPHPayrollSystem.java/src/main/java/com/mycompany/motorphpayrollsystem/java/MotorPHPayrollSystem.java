@@ -94,8 +94,8 @@ public class MotorPHPayrollSystem {
         String idSearch = sc.nextLine(); // Get employee ID
         int index = findEmp(idSearch); // Find index in parallel arrays
 
-        if (index != -1) {
-            // This displays the employee information
+        if (index != -1) { 
+            // This displays the employee information such as employee ID, name and birthday.
             System.out.println("\n--- Employee Details ---");
             System.out.println("Employee Number: " + empID[index]);
             System.out.println("Employee Name:   " + empName[index]);
@@ -127,7 +127,7 @@ public class MotorPHPayrollSystem {
             int sub = sc.nextInt(); // This captures the user's submenu selection.
             sc.nextLine(); // This prevents skipping future inputs
 
-            // 1. This process payroll for a specific individual.
+            // 1. This processes payroll for a specific individual.
             if (sub == 1) {
                 System.out.print("Enter employee number: ");
                 String id = sc.nextLine(); // This gets the ID to support for.
@@ -153,14 +153,14 @@ public class MotorPHPayrollSystem {
     // Handles monthly payroll, hours, gross/net salary & deductions
     public static void processPayroll(int idx) {
         System.out.println("\n****************************************");
-        System.out.println("Employee #: " + empID[index]);
-        System.out.println("Name: " + empName[index]);
-        System.out.println("Birthday: " + empBday[index]);
+        System.out.println("Employee #: " + empID[idx]);
+        System.out.println("Name: " + empName[idx]);
+        System.out.println("Birthday: " + empBday[idx]);
 
         // Process months June (6) to December (12)
         for (int m = 6; m <= 12; m++) {
             // 1st Cutoff: Day 1-15
-            // m  - Months
+            // m  - Month
             // h1 - Total hours during 1st half.
             // g1 - Gross Salary for the first cutoff.
             double h1 = getHours(empID[idx], m, 1, 15);
@@ -181,8 +181,8 @@ public class MotorPHPayrollSystem {
             // Calculation of Government Deductions (Applied on 2nd Cutoff)
             double totalGross = g1 + g2;
             double sss = computeSSS(totalGross);
-            double phil = totalGross * 0.03; // Simple 3% rule
-            double pagibig = 100.0;
+            double phil = computePhilHealth(totalGross);
+            double pagibig = computePagibig(totalGross);
             double taxable = totalGross - (sss + phil + pagibig);
             double tax = computeTax(taxable);
 
@@ -297,17 +297,106 @@ public class MotorPHPayrollSystem {
         }
         return -1;
     }
+    
+    //==========SSS CONDITIONS==========
+   public static double computeSSS(double salary) {
 
-    public static double computeSSS(double g) {
-        if (g <= 3250) {
-            return 135;
-        }
-        if (g >= 24750) {
-            return 1125;
-        }
-        return g * 0.045;
+    if (salary <= 3250) return 135;
+    else if (salary <= 3750) return 157.50;
+    else if (salary <= 4250) return 180;
+    else if (salary <= 4750) return 202.50;
+    else if (salary <= 5250) return 225;
+    else if (salary <= 5750) return 247.50;
+    else if (salary <= 6250) return 270;
+    else if (salary <= 6750) return 292.50;
+    else if (salary <= 7250) return 315;
+    else if (salary <= 7750) return 337.50;
+    else if (salary <= 8250) return 360;
+    else if (salary <= 8750) return 382.50;
+    else if (salary <= 9250) return 405;
+    else if (salary <= 9750) return 427.50;
+    else if (salary <= 10250) return 450;
+    else if (salary <= 10750) return 472.50;
+    else if (salary <= 11250) return 495;
+    else if (salary <= 11750) return 517.50;
+    else if (salary <= 12250) return 540;
+    else if (salary <= 12750) return 562.50;
+    else if (salary <= 13250) return 585;
+    else if (salary <= 13750) return 607.50;
+    else if (salary <= 14250) return 630;
+    else if (salary <= 14750) return 652.50;
+    else if (salary <= 15250) return 675;
+    else if (salary <= 15750) return 697.50;
+    else if (salary <= 16250) return 720;
+    else if (salary <= 16750) return 742.50;
+    else if (salary <= 17250) return 765;
+    else if (salary <= 17750) return 787.50;
+    else if (salary <= 18250) return 810;
+    else if (salary <= 18750) return 832.50;
+    else if (salary <= 19250) return 855;
+    else if (salary <= 19750) return 877.50;
+    else if (salary <= 20250) return 900;
+    else if (salary <= 20750) return 922.50;
+    else if (salary <= 21250) return 945;
+    else if (salary <= 21750) return 967.50;
+    else if (salary <= 22250) return 990;
+    else if (salary <= 22750) return 1012.50;
+    else if (salary <= 23250) return 1035;
+    else if (salary <= 23750) return 1057.50;
+    else if (salary <= 24250) return 1080;
+    else if (salary <= 24750) return 1102.50;
+    else return 1125;
+}
+    
+    //==========PHILHEALTH CONDITIONS==========
+    public static double computePhilHealth(double salary) {
+
+    double premium;
+
+    // If salary is 10,000 or below
+    if (salary <= 10000) {
+        premium = 300;
     }
 
+    // If salary is between 10,000.01 and 59,999.99
+    else if (salary < 60000) {
+        premium = salary * 0.03;
+    }
+
+    // If salary is 60,000 and above
+    else {
+        premium = 1800;
+    }
+
+    // Employee pays only 50%
+    return premium / 2;
+}
+
+    // ==========PAGIBIG CONDITIONS==========
+    public static double computePagibig(double salary) {
+
+    double rate;
+    double contribution;
+
+    // Determine contribution rate
+    if (salary <= 1500) {
+        rate = 0.01; // 1%
+    } else {
+        rate = 0.02; // 2%
+    }
+
+    // Compute contribution
+    contribution = salary * rate;
+
+    // Maximum contribution cap
+    if (contribution > 100) {
+        contribution = 100;
+    }
+
+    return contribution;
+}
+
+    //==========WITHHOLDING TAX CONDITIONS==========
     public static double computeTax(double taxable) {
         if (taxable <= 20833) {
             return 0;
