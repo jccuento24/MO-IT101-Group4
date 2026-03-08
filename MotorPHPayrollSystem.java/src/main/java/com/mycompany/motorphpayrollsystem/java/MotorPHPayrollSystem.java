@@ -107,6 +107,13 @@ public class MotorPHPayrollSystem {
         System.out.println("1. Process Payroll");
         System.out.println("2. Exit");
         System.out.print("Select choice: ");
+
+        if (!sc.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a number.");
+            sc.nextLine();
+            return;
+        }
+        
         int choice = sc.nextInt(); // Read choices
         sc.nextLine(); // clear buffer
         
@@ -116,6 +123,13 @@ public class MotorPHPayrollSystem {
             System.out.println("\n[1] One employee");
             System.out.println("[2] All employees");
             System.out.print("Choice: ");
+
+            if (!sc.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a number.");
+            sc.nextLine();
+            return;
+        }
+            
             int sub = sc.nextInt(); // This captures the user's submenu selection.
             sc.nextLine(); // This prevents skipping future inputs
 
