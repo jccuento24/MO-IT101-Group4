@@ -82,6 +82,7 @@ public class MotorPHPayrollSystem {
     // Displays personal info for employees.
     public static void employeeRole(Scanner sc) {
         System.out.print("\nEnter employee number: ");
+        System.out.print("\nEnter 0 to Exit: ");
         String idSearch = sc.nextLine(); // Get employee ID
         int index = findEmp(idSearch); // Find index in parallel arrays
 
@@ -152,25 +153,25 @@ public class MotorPHPayrollSystem {
         for (int m = 6; m <= 12; m++) {
             // 1st Cutoff: Day 1-15
             // m  - Month
-            // h1 - Total hours during 1st half.
-            // g1 - Gross Salary for the first cutoff.
-            double h1 = getHours(empID[idx], m, 1, 15);
-            double g1 = h1 * empRate[idx];  // Gross salary for the 1st cutoff.
+            // th1 - Total hours during 1st half.
+            // gs1 - Gross Salary for the first cutoff.
+            double th1 = getHours(empID[idx], m, 1, 15);
+            double gs1 = th1 * empRate[idx];  // Gross salary for the 1st cutoff.
 
             // 2nd Cutoff: Day 16-31
-            // h2 - Total hours during 2nd half.
-            // g2 - Gross Salary for the second cutoff.
-            double h2 = getHours(empID[idx], m, 16, 31);
-            double g2 = h2 * empRate[idx]; // Gross salary for the 2nd cutoff.
+            // thd2 - Total hours during 2nd half.
+            // gs2 - Gross Salary for the second cutoff.
+            double th2 = getHours(empID[idx], m, 16, 31);
+            double gs2 = th2 * empRate[idx]; // Gross salary for the 2nd cutoff.
 
             // 1st Cutoff Output
             System.out.println("\nCutoff: " + m + "/01 to " + m + "/15");
-            System.out.println("Total Hours: " + h1);
-            System.out.println("Gross Salary: " + g1);
-            System.out.println("Net Salary: " + g1);
+            System.out.println("Total Hours: " + th1);
+            System.out.println("Gross Salary: " + gs1);
+            System.out.println("Net Salary: " + gs1);
 
             // Calculation of Government Deductions (Applied on 2nd Cutoff)
-            double totalGross = g1 + g2;
+            double totalGross = gs1 + gs2;
             double sss = computeSSS(totalGross); // Computes SSS contribution.
             double phil = computePhilHealth(totalGross); // Computes Philhealth contribution.
             double pagibig = computePagibig(totalGross); // Computes Pagibig contribution.
@@ -178,15 +179,17 @@ public class MotorPHPayrollSystem {
             double tax = computeTax(taxable); // Computes withholding tax.
 
             double totalDed = sss + phil + pagibig + tax; // Computes total deductions.
-            double net2 = g2 - totalDed; // Computes the net salary after all deductions.
+            double net2 = gs2 - totalDed; // Computes the net salary after all deductions.
 
             // 2nd Cutoff Output
             // This prints the final payroll summary of the month.
-            System.out.println("\nCutoff: " + m + "/16 to " + m + "/end");
-            System.out.println("Total Hours: " + h2);
-            System.out.println("Gross Salary: " + g2);
-            System.out.println("SSS: " + sss + " | PhilHealth: " + phil);
-            System.out.println("Pag-IBIG: " + pagibig + " | Tax: " + tax);
+            System.out.println("\nCutoff: " + m + "/16 to end");
+            System.out.println("Total Hours: " + th2);
+            System.out.println("Gross Salary: " + gs2);
+            System.out.println("SSS: " + sss);
+            System.out.println("PhilHealth: " + phil);
+            System.out.println("Pag-IBIG: " + pagibig);
+            System.out.println("Tax: " + tax);
             System.out.println("Total Deductions: " + totalDed);
             System.out.println("Net Salary: " + net2);
         }
