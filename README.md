@@ -5,8 +5,11 @@ Payroll system for MotorPH employees.
 **Team Details**
 
 **Julius**
+
 **Role:** Project Coordinator / System Integration
+
  Responsibilities:
+ 
 Reviewed MotorPH project requirements
 Designed the employee data format
 Developed the net salary calculation module
