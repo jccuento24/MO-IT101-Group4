@@ -212,85 +212,110 @@ public class MotorPHPayrollSystem {
     // ==========================================
     // TIME CALCULATION LOGIC (8 AM - 5 PM)
     // ==========================================
+    // Method that calculates total working hours of an employee
+    // id = employee ID
+    // month = selected month
+    // start = start day of cutoff
+    // end = end day of cutoff
     public static double getHours(String id, int month, int start, int end) {
-        double totalH = 0;
+        double totalH = 0; // Variable that will store the total computed hours
+
+        // Loop through all attendance records
         for (int i = 0; i < attTotal; i++) {
+            // Check if the attendance record belongs to the selected employee
             if (attID[i].equals(id)) {
                 // Split date MM/DD/YYYY
                 String[] dParts = attDate[i].split("/");
+                // Convert month from String to integer
                 int m = Integer.parseInt(dParts[0]);
+                // Convert day from String to integer
                 int d = Integer.parseInt(dParts[1]);
-
+                
+                // Check if the record is within the selected month and cutoff dates
                 if (m == month && d >= start && d <= end) {
+                    // Convert time-in from HH:MM format to decimal
                     double tin = timeToDec(attIn[i]);
+                    // Convert time-out from HH:MM format to decimal
                     double tout = timeToDec(attOut[i]);
 
                     // Rule: Only 8:00 AM to 5:00 PM (17.0)
+                    // If employee arrived earlier than 8 AM, set it to 8 AM
                     if (tin < 8.0) {
                         tin = 8.0;
                     }
+                    // If employee left later than 5 PM, limit it to 5 PM
                     if (tout > 17.0) {
                         tout = 17.0;
                     }
-
+                    // Compute total work hours for that day
                     double daily = tout - tin;
 
                     // Subtract 1 hour for lunch if they worked a full shift
                     if (daily > 4.0) {
                         daily = daily - 1.0;
                     }
-
+                    // Only add positive hours to total
                     if (daily > 0) {
                         totalH = totalH + daily;
                     }
                 }
             }
         }
+        // Return the total computed hours for the employee
         return totalH;
     }
-
+    // Method that converts time from HH:MM format to decimal format
     public static double timeToDec(String t) {
+        // Split the time string using ":" delimiter
         String[] p = t.split(":");
+        // Convert the hour part to double
         double hours = Double.parseDouble(p[0]);
+        // Convert the minutes part to double
         double mins = Double.parseDouble(p[1]);
+        // Convert minutes into decimal and add to hours
         return hours + (mins / 60.0);
     }
 
     // ==========================================
     // FILE HANDLING (BUFFERED READER)
     // ==========================================
+    // Method that loads employee data from employees.csv
     public static void loadEmployees(String path) {
+        
+        // Try-with-resources automatically closes the file after reading
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line = br.readLine(); // skip header
-            while ((line = br.readLine()) != null && empTotal < MAX_EMP) {
+            String line = br.readLine(); // Read the first line (header) and skip it
+            while ((line = br.readLine()) != null && empTotal < MAX_EMP) { // Read each line of the file until end or array limit reached
                 // Basic split: uses a manual loop to clean quotes instead of advanced regex
                 String[] data = line.split(",");
-                empID[empTotal] = data[0];
-                empName[empTotal] = data[2] + " " + data[1];
-                empBday[empTotal] = data[3];
+                empID[empTotal] = data[0]; // Store employee ID
+                empName[empTotal] = data[2] + " " + data[1]; // Combine last name and first name
+                empBday[empTotal] = data[3]; // Store birthday
 
-                // Get the last column (Hourly Rate) and remove quotes/commas
+                // Get hourly rate column and remove quotes and commas
                 String rateRaw = data[data.length - 1].replace("\"", "").replace(",", "");
-                empRate[empTotal] = Double.parseDouble(rateRaw);
-                empTotal++;
+                empRate[empTotal] = Double.parseDouble(rateRaw); // Convert the hourly rate string into double
+                empTotal++; // Increase employee counter
             }
         } catch (IOException e) {
-            System.out.println("Error reading employees.csv");
+            System.out.println("Error reading employees.csv"); // Display error if the file cannot be read
         }
     }
-
+    
+    // Method that loads attendance records from attendance.csv
     public static void loadAttendance(String path) {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            br.readLine();
-            while ((line = br.readLine()) != null && attTotal < MAX_ATT) {
-                String[] data = line.split(",");
-                attID[attTotal] = data[0];
-                attDate[attTotal] = data[3];
-                attIn[attTotal] = data[4];
-                attOut[attTotal] = data[5];
-                attTotal++;
+            br.readLine(); // Skip header row
+            while ((line = br.readLine()) != null && attTotal < MAX_ATT) { // Read each attendance line
+                String[] data = line.split(","); // Split CSV data into columns
+                attID[attTotal] = data[0]; // Store employee ID
+                attDate[attTotal] = data[3]; // Store attendance date
+                attIn[attTotal] = data[4]; // Store time-in
+                attOut[attTotal] = data[5]; // Store time-out
+                attTotal++; // Increase attendance record counter
             }
         } catch (IOException e) {
+            // Display error if attendance file cannot be read
             System.out.println("Error reading attendance.csv");
         }
     }
@@ -298,17 +323,21 @@ public class MotorPHPayrollSystem {
     // ==========================================
     // UTILITY METHODS
     // ==========================================
+    // Method to find the index of an employee based on ID
     public static int findEmp(String id) {
-        for (int i = 0; i < empTotal; i++) {
-            if (empID[i].equals(id)) {
-                return i;
+        for (int i = 0; i < empTotal; i++) { // Loop through all employee records
+            if (empID[i].equals(id)) { // If employee ID matches the input ID
+                return i; // Return the index position of the employee
             }
         }
+        // Return -1 if employee is not found
         return -1;
     }
     
     //==========SSS CONDITIONS==========
    public static double computeSSS(double salary) {
+
+    // Each condition checks the salary range and returns the corresponding SSS contribution
 
     if (salary <= 3250) return 135;
     else if (salary <= 3750) return 157.50;
@@ -354,13 +383,13 @@ public class MotorPHPayrollSystem {
     else if (salary <= 23750) return 1057.50;
     else if (salary <= 24250) return 1080;
     else if (salary <= 24750) return 1102.50;
-    else return 1125;
+    else return 1125; // Maximum contribution
 }
     
     //==========PHILHEALTH CONDITIONS==========
     public static double computePhilHealth(double salary) {
 
-    double premium;
+    double premium; // Variable to store PhilHealth premium
 
     // If salary is 10,000 or below
     if (salary <= 10000) {
@@ -384,35 +413,39 @@ public class MotorPHPayrollSystem {
     // ==========PAGIBIG CONDITIONS==========
     public static double computePagibig(double salary) {
 
-    double rate;
-    double contribution;
+    double rate; // Contribution rate
+    double contribution; // Computed contribution
 
-    // Determine contribution rate
+    // If salary is 1500 or below
     if (salary <= 1500) {
-        rate = 0.01; // 1%
+        rate = 0.01; // 1% contribution
     } else {
-        rate = 0.02; // 2%
+        rate = 0.02; // 2% contribution
     }
 
-    // Compute contribution
+    // Compute contribution based on rate
     contribution = salary * rate;
 
-    // Maximum contribution cap
+    // Maximum contribution limit is 100
     if (contribution > 100) {
         contribution = 100;
     }
-
+    // Return final Pag-IBIG deduction
     return contribution;
 }
 
     //==========WITHHOLDING TAX CONDITIONS==========
     public static double computeTax(double taxable) {
-        if (taxable <= 20833) {
+        
+        // No tax if taxable income is below threshold
+        if (taxable <= 20833) { 
             return 0;
         }
+        // 20% tax bracket
         if (taxable <= 33333) {
             return (taxable - 20833) * 0.20;
         }
+        // 25% tax bracket with base tax
         return (taxable - 33333) * 0.25 + 2500;
     }
 }
