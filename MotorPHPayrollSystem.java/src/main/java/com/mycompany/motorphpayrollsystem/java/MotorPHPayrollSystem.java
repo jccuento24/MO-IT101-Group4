@@ -40,8 +40,7 @@ public class MotorPHPayrollSystem {
     static String[] attIn = new String[MAX_ATT]; // Clock-in time
     static String[] attOut = new String[MAX_ATT]; // Clock-out time
     static int attTotal = 0;                      // Current total attendance records
-    private static String line;                   // Temporary variable for reading file lines
-
+    
 
     // ================= MAIN METHOD =================
     public static void main(String[] args) {
@@ -84,6 +83,12 @@ public class MotorPHPayrollSystem {
         System.out.print("\nEnter employee number: ");
         System.out.print("\nEnter 0 to Exit: ");
         String idSearch = sc.nextLine(); // Get employee ID
+
+        // If user enters 0, exit the method without showing anything
+        if (idSearch.equals("0")) {
+            return;
+        }
+        
         int index = findEmp(idSearch); // Find index in parallel arrays
 
         if (index != -1) { 
@@ -284,7 +289,9 @@ public class MotorPHPayrollSystem {
         
         // Try-with-resources automatically closes the file after reading
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line = br.readLine(); // Read the first line (header) and skip it
+            br.readLine(); // Read the first line (header) and skip it
+
+            String line;
             while ((line = br.readLine()) != null && empTotal < MAX_EMP) { // Read each line of the file until end or array limit reached
                 // Basic split: uses a manual loop to clean quotes instead of advanced regex
                 String[] data = line.split(",");
@@ -306,6 +313,8 @@ public class MotorPHPayrollSystem {
     public static void loadAttendance(String path) {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             br.readLine(); // Skip header row
+
+            String line;
             while ((line = br.readLine()) != null && attTotal < MAX_ATT) { // Read each attendance line
                 String[] data = line.split(","); // Split CSV data into columns
                 attID[attTotal] = data[0]; // Store employee ID
