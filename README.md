@@ -7,7 +7,7 @@ Payroll system for MotorPH employees.
 
 **Team Details**
 
-==========Julius==========
+========== JULIUS ==========
 
 **Role:** Project Coordinator / System Integration
 
@@ -22,7 +22,7 @@ Developed the net salary calculation module
 Assisted in integrating all program components into the final system
 
 
-**Edgar**
+========== EDGAR ==========
 
 **Role:** Input Processing and System Testing
 
@@ -37,8 +37,7 @@ Conducted payroll computation testing
 Helped verify the accuracy of salary calculations
 
 
-
-**Marielle**
+========== MARIELLE ==========
 
 **Role:** System Design and Interface Development
 
@@ -53,7 +52,7 @@ Assisted in debugging and revising the code
 Ensured the program output is clear and organized
 
 
-**Mark**
+========== MARK ==========
 
 **Role:** System Visualization and Core Calculations
 
@@ -68,8 +67,7 @@ Assisted in preparing the final system output and submission
 Helped verify computation logic
 
 
-
-**Rose**
+========== ROSE ==========
 
 **Role:** Documentation and Payroll Deductions
 
@@ -83,7 +81,7 @@ Assisted with project documentation
 
 Helped review the program logic and outputs
 
-Collaboration
+========== COLLABORATION ==========
 
 The team collaborated throughout the project lifecycle, including:
 
@@ -102,7 +100,7 @@ All members contributed to the coding and development of the MotorPH Payroll Sys
 
 —-----------------------------------------------------------------------------------------------------------------------------
 
-**Program Details**
+========== PROGRAM DETAILS ==========
 
 The MotorPH Payroll Management System is a Java-based console application designed to manage employee payroll and attendance records.
 The system reads employee information and attendance logs from CSV files. Users must log in using valid credentials to access the system. There are two user roles: employee and payroll staff.
@@ -115,6 +113,6 @@ This system helps automate payroll calculations and ensures that employee salary
 
 —-----------------------------------------------------------------------------------------------------------------------------
 
-**Project Plan Link**
+========== PROJECT PLAN LINK ==========
 
 https://docs.google.com/spreadsheets/d/1riCqJi72GK1pGyXxDrVCekdcFKb3m5W7AhzzZ9tbbyI/edit?usp=sharing
