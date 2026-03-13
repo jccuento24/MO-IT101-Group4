@@ -108,40 +108,40 @@ public class MotorPHPayrollSystem {
     // Staff can process payroll for one or all employees.
     public static void payrollRole(Scanner sc) {
 
-    // Loop to keep the Payroll Staff Menu running until the user chooses to exit
+    // Loop to keep the Payroll Staff Menu running until the user chooses to exit.
     while (true) {
 
-        // Display the main payroll menu
+        // Display the main payroll menu.
         System.out.println("\n--- Payroll Staff Menu ---");
         System.out.println("1. Process Payroll");
         System.out.println("2. Exit");
         System.out.print("Select choice: ");
 
-        // Validate if the user entered a number
+        // Validate if the user entered a number.
         if (!sc.hasNextInt()) {
-            // If input is not a number, show an error message
+            // If input is not a number, show an error message.
             System.out.println("Enter valid choice number to proceed.");
-            sc.nextLine(); // Clear invalid input from the scanner
-            continue; // Return to the start of the loop
+            sc.nextLine(); // Clear invalid input from the scanner.
+            continue; // Return to the start of the loop.
         }
 
-        // Read the user's menu selection
+        // Read the user's menu selection.
         int choice = sc.nextInt();
-        sc.nextLine(); // Clear the input buffer
+        sc.nextLine(); // Clear the input buffer.
 
-        // If the user selects option 2, exit the payroll menu
+        // If the user selects option 2, exit the payroll menu.
         if (choice == 2) {
             System.out.println("Exiting Payroll Menu...");
-            break; // Stops the loop and exits the function
+            break; // Stops the loop and exits the function.
         }
 
-        // If the user selects option 1, display the payroll processing submenu
+        // If the user selects option 1, display the payroll processing submenu.
         if (choice == 1) {
 
-            // Submenu loop so the user can process payroll multiple times
+            // Submenu loop so the user can process payroll multiple times.
             while (true) {
 
-                // Display submenu options
+                // Display submenu options.
                 System.out.println("\n[1] One employee");
                 System.out.println("[2] All employees");
                 System.out.println("[3] Exit");
@@ -150,64 +150,64 @@ public class MotorPHPayrollSystem {
                 // Validate submenu input
                 if (!sc.hasNextInt()) {
                     System.out.println("Enter valid choice number to proceed.");
-                    sc.nextLine(); // Clear invalid input
-                    continue; // Restart submenu
+                    sc.nextLine(); // Clear invalid input.
+                    continue; // Restart submenu.
                 }
 
-                // Capture the user's submenu choice
+                // Capture the user's submenu choice.
                 int sub = sc.nextInt();
-                sc.nextLine(); // Clear buffer
+                sc.nextLine(); // Clear buffer.
 
-                // OPTION 1: Process payroll for one specific employee
+                // OPTION 1: Process payroll for one specific employee.
                 if (sub == 1) {
 
-                    // Ask the user for the employee number
+                    // Ask the user for the employee number.
                     System.out.print("Enter employee number (0 to Exit): ");
                     String id = sc.nextLine();
 
-                    // If user enters 0, return to the submenu
+                    // If user enters 0, return to the submenu.
                     if (id.equals("0")) {
                         System.out.println("Returning to Payroll Menu...");
                         continue;
                     }
 
-                    // Find the employee in the system using the employee ID
+                    // Find the employee in the system using the employee ID.
                     int index = findEmp(id);
 
-                    // If the employee exists, process payroll
+                    // If the employee exists, process payroll.
                     if (index != -1) {
                         processPayroll(index);
                     } 
                     else {
-                        // Display error message if employee ID does not exist
+                        // Display error message if employee ID does not exist.
                         System.out.println("Employee number does not exist.");
                     }
                 }
 
-                // OPTION 2: Process payroll for all employees
+                // OPTION 2: Process payroll for all employees.
                 else if (sub == 2) {
 
-                    // Loop through all employees stored in the system
+                    // Loop through all employees stored in the system.
                     for (int i = 0; i < empTotal; i++) {
 
-                        // Run payroll calculation for each employee
+                        // Run payroll calculation for each employee.
                         processPayroll(i);
                     }
                 }
 
-                // OPTION 3: Exit the payroll processing submenu
+                // OPTION 3: Exit the payroll processing submenu.
                 else if (sub == 3) {
-                    break; // Exit the submenu and return to main payroll menu
+                    break; // Exit the submenu and return to main payroll menu.
                 }
 
-                // If the user enters an invalid submenu choice
+                // If the user enters an invalid submenu choice.
                 else {
                     System.out.println("Enter valid choice number to proceed.");
                 }
             }
         }
 
-        // If the main menu choice is not 1 or 2
+        // If the main menu choice is not 1 or 2.
         else {
             System.out.println("Enter valid choice number to proceed.");
         }
