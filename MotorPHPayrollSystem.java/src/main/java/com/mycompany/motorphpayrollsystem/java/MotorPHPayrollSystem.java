@@ -80,27 +80,49 @@ public class MotorPHPayrollSystem {
     // ==========================================
     // Displays personal info for employees.
     public static void employeeRole(Scanner sc) {
-        System.out.print("\nEnter employee number or 0 to Exit: ");
-        String idSearch = sc.nextLine(); // Get employee ID
 
-        // If user enters 0, exit the method without showing anything
+    // This keeps the Employee search running until the user chooses to exit.
+    while (true) {
+
+        // Ask the user to enter an employee number.
+        // The user can enter 0 if they want to exit the employee view.
+        System.out.print("\nEnter employee number (0 to Exit): ");
+
+        // Read the employee number entered by the user.
+        String idSearch = sc.nextLine();
+
+        // If the user enters 0, exit the employee role function.
         if (idSearch.equals("0")) {
-            return;
+            System.out.println("Exiting Employee View...");
+            break; // Exit the loop and return to the previous menu.
         }
-        
-        int index = findEmp(idSearch); // Find index in parallel arrays
 
-        if (index != -1) { 
-            // This displays the employee information such as employee ID, name and birthday.
+        // Check if the input is empty or invalid.
+        if (idSearch.trim().isEmpty()) {
+            System.out.println("Enter valid choice number to proceed.");
+            continue; // Restart the loop.
+        }
+
+        // Search for the employee ID in the system.
+        int index = findEmp(idSearch);
+
+        // If the returned index is not -1, the employee exists.
+        if (index != -1) {
+
+            // This prints the employee stored details.
             System.out.println("\n--- Employee Details ---");
             System.out.println("Employee Number: " + empID[index]);
             System.out.println("Employee Name:   " + empName[index]);
             System.out.println("Birthday:        " + empBday[index]);
-        } else {
+
+        } 
+        else {
+
             // This prints if the employee ID is not found.
             System.out.println("Employee number does not exist.");
         }
     }
+}
 
     // ==========================================
     // ROLE: PAYROLL STAFF
