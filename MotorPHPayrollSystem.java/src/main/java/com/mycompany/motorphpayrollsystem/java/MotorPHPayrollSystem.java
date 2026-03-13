@@ -80,8 +80,7 @@ public class MotorPHPayrollSystem {
     // ==========================================
     // Displays personal info for employees.
     public static void employeeRole(Scanner sc) {
-        System.out.print("\nEnter employee number: ");
-        System.out.print("\nEnter 0 to Exit: ");
+        System.out.print("\nEnter employee number or 0 to Exit: ");
         String idSearch = sc.nextLine(); // Get employee ID
 
         // If user enters 0, exit the method without showing anything
