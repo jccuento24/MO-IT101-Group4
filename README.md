@@ -4,14 +4,16 @@
 Payroll system for MotorPH employees.
 
 
+---
+## Team Details
 
-**Team Details**
+## JULIUS
 
-========== JULIUS ==========
+Email : lr.jccuento@mmdc.mcl.edu.ph
 
 **Role:** Project Coordinator / System Integration
 
- Responsibilities:
+========== Responsibilities: ==========
  
 Reviewed MotorPH project requirements
 
@@ -22,11 +24,13 @@ Developed the net salary calculation module
 Assisted in integrating all program components into the final system
 
 
-========== EDGAR ==========
+# EDGAR
 
 **Role:** Input Processing and System Testing
 
- Responsibilities:
+Email : lr.edbimbo@mmdc.mcl.edu.ph
+
+========== Responsibilities: ==========
  
 Identified payroll system features during planning
 
@@ -37,11 +41,13 @@ Conducted payroll computation testing
 Helped verify the accuracy of salary calculations
 
 
-========== MARIELLE ==========
+## MARIELLE
+
+Email :  lr.mitable@mmdc.mcl.edu.ph
 
 **Role:** System Design and Interface Development
 
- Responsibilities:
+========== Responsibilities: ==========
  
 Designed the overall system structure
 
@@ -52,11 +58,13 @@ Assisted in debugging and revising the code
 Ensured the program output is clear and organized
 
 
-========== MARK ==========
+## MARK
+
+Email :  lr.mabravo@mmdc.mcl.edu.ph
 
 **Role:** System Visualization and Core Calculations
 
- Responsibilities:
+========== Responsibilities: ==========
  
 Created the system wireframes
 
@@ -67,11 +75,13 @@ Assisted in preparing the final system output and submission
 Helped verify computation logic
 
 
-========== ROSE ==========
+## ROSE 
+
+Email : lr.radilinila@mmdc.mcl.edu.ph
 
 **Role:** Documentation and Payroll Deductions
 
- Responsibilities:
+========== Responsibilities: ==========
  
 Created the system use case diagram
 
@@ -81,7 +91,9 @@ Assisted with project documentation
 
 Helped review the program logic and outputs
 
-========== COLLABORATION ==========
+---
+Collaboration
+---
 
 The team collaborated throughout the project lifecycle, including:
 
@@ -98,9 +110,8 @@ Final documentation and submission
 
 All members contributed to the coding and development of the MotorPH Payroll System, ensuring equal participation in building the final working program.
 
-—-----------------------------------------------------------------------------------------------------------------------------
-
-========== PROGRAM DETAILS ==========
+---
+## Program Details
 
 The MotorPH Payroll Management System is a Java-based console application designed to manage employee payroll and attendance records.
 The system reads employee information and attendance logs from CSV files. Users must log in using valid credentials to access the system. There are two user roles: employee and payroll staff.
@@ -111,8 +122,8 @@ The system also calculates government-mandated deductions including SSS, PhilHea
 
 This system helps automate payroll calculations and ensures that employee salary records are processed accurately using attendance data.
 
-—-----------------------------------------------------------------------------------------------------------------------------
+---
 
-========== PROJECT PLAN LINK ==========
+## Project Plan Link
 
 https://docs.google.com/spreadsheets/d/1riCqJi72GK1pGyXxDrVCekdcFKb3m5W7AhzzZ9tbbyI/edit?usp=sharing
