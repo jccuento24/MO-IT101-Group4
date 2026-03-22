@@ -474,7 +474,7 @@ public class MotorPHPayrollSystem {
     // It enforces company rules such as work schedule limits, grace periods, and lunch break deductions.
     public static double getHours(String id, int month, int start, int end) {
 
-        double totalH = 0; // Accumulates total valid working hours
+        double totalHours = 0; // Accumulates total valid working hours
 
         // Loop through all attendance records in the dataset
         for (int i = 0; i < attTotal; i++) {
@@ -513,14 +513,14 @@ public class MotorPHPayrollSystem {
                     // Only add valid (positive) working hours
                     // Prevents errors from invalid or incomplete logs
                     if (daily > 0) {
-                        totalH += daily;
+                        totalHours += daily;
                     }
                 }
             }
         }
 
         // Return total hours worked for the cutoff period
-        return totalH;
+        return totalHours;
     }
 
     // ----------------------------
