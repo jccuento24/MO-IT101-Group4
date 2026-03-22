@@ -13,14 +13,14 @@ package com.mycompany.motorphpayrollsystem.java;
  *
  * * PURPOSE:
  * This program simulates a payroll system that allows:
- * - Employees to view their personal information.
- * - Payroll staff to compute salaries, attendance, and deductions.
+ * - Employees to view their personal information
+ * - Payroll staff to compute salaries, attendance, and deductions
  *
  * * DESIGN:
  * The system uses parallel arrays to store employee and attendance data.
  * Payroll is calculated based on:
- * - Hours worked within cutoff periods.
- * - Government-mandated deductions (SSS, PhilHealth, Pag-IBIG, Tax).
+ * - Hours worked within cutoff periods
+ * - Government-mandated deductions (SSS, PhilHealth, Pag-IBIG, Tax)
  *
  * * NOTE:
  * All computations follow basic company rules such as:
@@ -45,7 +45,7 @@ public class MotorPHPayrollSystem {
     static final int MAX_EMP = 100; // Maximum number of employees supported
     static final int MAX_ATT = 8000; // Maximum number of attendance records
     static final double WORK_START = 8.0; // Official start of the workday in decimal hours (8:00 AM).
-    static final double GRACE_END = 8.1667; // End of the grace period in decimal hours (8:10 AM ≈ 8 + 10/60).
+    static final double GRACE_END = 8.1667; // End of the grace period in decimal hours (8:10 AM = 8 + 10/60).
                                             // Employees arriving at or before this time are still considered on time.
 
     // Parallel Arrays to store Employee Data
@@ -218,21 +218,21 @@ public class MotorPHPayrollSystem {
     // ----------------------------
     public static int showPayrollMenu(Scanner sc) {
 
-        System.out.println("\n--- Payroll Staff Menu ---"); // Display menu header for payroll staff options.
-        System.out.println("1. Process Payroll"); // Option for processing employee payroll.
-        System.out.println("2. Exit"); // Option for exiting the payroll staff menu.
-        System.out.print("Select choice: "); // Prompt the user to select a menu option.
+        System.out.println("\n--- Payroll Staff Menu ---"); // Display menu header for payroll staff options
+        System.out.println("1. Process Payroll"); // Option for processing employee payroll
+        System.out.println("2. Exit"); // Option for exiting the payroll staff menu
+        System.out.print("Select choice: "); // Prompt the user to select a menu option
 
-        if (!sc.hasNextInt()) { // Check if the user entered a number to prevent input mismatch errors.
-            System.out.println("Enter valid choice number to proceed."); // Inform the user that only numeric input is allowed.
-            sc.nextLine(); // Clear the invalid input from the scanner buffer to avoid repeated errors.
-            return 0; // Return 0 so the calling method treats it as an invalid menu choice.
+        if (!sc.hasNextInt()) { // Check if the user entered a number to prevent input mismatch errors
+            System.out.println("Enter valid choice number to proceed."); // Inform the user that only numeric input is allowed
+            sc.nextLine(); // Clear the invalid input from the scanner buffer to avoid repeated errors
+            return 0; // Return 0 so the calling method treats it as an invalid menu choice
         }
 
-        int choice = sc.nextInt(); // Read the numeric choice entered by the user.
-        sc.nextLine(); // Consume the leftover newline character to prevent input skipping in later prompts.
+        int choice = sc.nextInt(); // Read the numeric choice entered by the user
+        sc.nextLine(); // Consume the leftover newline character to prevent input skipping in later prompts
 
-        return choice; // Return the user's selection so the program can determine the next action.
+        return choice; // Return the user's selection so the program can determine the next action
     }
     
     // ----------------------------
@@ -240,22 +240,22 @@ public class MotorPHPayrollSystem {
     // ----------------------------
     public static void payrollProcessingMenu(Scanner sc) {
 
-        while (true) { // Continuously display the payroll processing menu until the user exits.
+        while (true) { // Continuously display the payroll processing menu until the user exits
 
-            int sub = showProcessingMenu(sc); // Display the submenu and capture the user's selection.
+            int sub = showProcessingMenu(sc); // Display the submenu and capture the user's selection
 
-            switch (sub) { // Use a switch statement to handle multiple menu options clearly.
+            switch (sub) { // Use a switch statement to handle multiple menu options clearly
 
                 case 1:
-                    processSingleEmployee(sc); // Process payroll for a specific employee selected by the user.
-                    break; // Stop executing further cases once this action is complete.
+                    processSingleEmployee(sc); // Process payroll for a specific employee selected by the user
+                    break; // Stop executing further cases once this action is complete
 
                 case 2:
-                    processAllEmployees(); // Process payroll for every employee in the system.
-                    break; // Prevent fall-through to the next case.
+                    processAllEmployees(); // Process payroll for every employee in the system
+                    break; // Prevent fall-through to the next case
 
                 case 3:
-                    return; // Exit the payroll processing menu and return to the previous payroll menu.
+                    return; // Exit the payroll processing menu and return to the previous payroll menu
 
                 default:
                     System.out.println("Enter valid choice number to proceed."); // Handle invalid menu choices
@@ -268,21 +268,21 @@ public class MotorPHPayrollSystem {
     // ----------------------------
     public static int showProcessingMenu(Scanner sc) {
 
-        System.out.println("\n[1] One employee"); // Option to process payroll for a single employee.
-        System.out.println("[2] All employees"); // Option to process payroll for all employees in the system.
-        System.out.println("[3] Exit"); // Option to exit the payroll processing submenu.
-        System.out.print("Choice: "); // Prompt the user to select an option.
+        System.out.println("\n[1] One employee"); // Option to process payroll for a single employee
+        System.out.println("[2] All employees"); // Option to process payroll for all employees in the system
+        System.out.println("[3] Exit"); // Option to exit the payroll processing submenu
+        System.out.print("Choice: "); // Prompt the user to select an option
 
-        if (!sc.hasNextInt()) { // Validate that the user entered a numeric value.
-            System.out.println("Enter valid choice number to proceed."); // Notify the user that the input is invalid.
-            sc.nextLine(); // Clear the invalid input to prevent scanner errors.
-            return 0; // Return 0 so the calling method knows the input was invalid.
+        if (!sc.hasNextInt()) { // Validate that the user entered a numeric value
+            System.out.println("Enter valid choice number to proceed."); // Notify the user that the input is invalid
+            sc.nextLine(); // Clear the invalid input to prevent scanner errors
+            return 0; // Return 0 so the calling method knows the input was invalid
         }
 
-        int sub = sc.nextInt(); // Read the submenu choice entered by the user.
-        sc.nextLine(); // Consume the leftover newline to prevent issues with future input.
+        int sub = sc.nextInt(); // Read the submenu choice entered by the user
+        sc.nextLine(); // Consume the leftover newline to prevent issues with future input
 
-        return sub; // Return the submenu choice so the program can determine the action to perform.
+        return sub; // Return the submenu choice so the program can determine the action to perform
     }
 
     // ----------------------------
@@ -290,20 +290,20 @@ public class MotorPHPayrollSystem {
     // ----------------------------
     public static void processSingleEmployee(Scanner sc) {
 
-        System.out.print("Enter employee number (0 to Exit): "); // Ask the payroll staff to enter the employee ID they want to process.
-        String id = sc.nextLine(); // Read the employee ID entered by the user.
+        System.out.print("Enter employee number (0 to Exit): "); // Ask the payroll staff to enter the employee ID they want to process
+        String id = sc.nextLine(); // Read the employee ID entered by the user
 
-        if (id.equals("0")) { // Allow the user to cancel the operation by entering 0.
-            System.out.println("Returning to Payroll Menu..."); // Inform the user that the operation is cancelled.
-            return; // Exit this method and go back to the payroll processing menu.
+        if (id.equals("0")) { // Allow the user to cancel the operation by entering 0
+            System.out.println("Returning to Payroll Menu..."); // Inform the user that the operation is cancelled
+            return; // Exit this method and go back to the payroll processing menu
         }
 
-        int index = findEmp(id); // Search for the employee in the employee list and return their index position.
+        int index = findEmp(id); // Search for the employee in the employee list and return their index position
 
-        if (index != -1) { // If the employee is found (index not equal to -1).
-            processPayroll(index); // Process payroll calculations for that specific employee.
+        if (index != -1) { // If the employee is found (index not equal to -1)
+            processPayroll(index); // Process payroll calculations for that specific employee
         } else {
-            System.out.println("Employee number does not exist."); // Notify the user if the employee ID was not found in the system.
+            System.out.println("Employee number does not exist."); // Notify the user if the employee ID was not found in the system
         }
     }
 
@@ -312,8 +312,8 @@ public class MotorPHPayrollSystem {
     // ----------------------------
     public static void processAllEmployees() {
 
-        for (int i = 0; i < empTotal; i++) { // Loop through all stored employees using the total employee count.
-            processPayroll(i); // Process payroll for each employee one by one using their index.
+        for (int i = 0; i < empTotal; i++) { // Loop through all stored employees using the total employee count
+            processPayroll(i); // Process payroll for each employee one by one using their index
         }
     }
     
@@ -353,12 +353,12 @@ public class MotorPHPayrollSystem {
     // PAYROLL PROCESSING
     // ================================================================
     // This method handles the full payroll computation for a single employee.
-    // It processes salaries month-by-month and splits each month into two cutoffs.
+    // It processes salaries month-by-month and splits each month into two cutoffs
     // (1–15 and 16–end), which is a common payroll structure.
-    public static void processPayroll(int idx) {
+    public static void processPayroll(int index) {
 
         // Display basic employee details before showing payroll breakdown
-        printEmployeeInfo(idx);
+        printEmployeeInfo(index);
 
         // Loop through months June (6) to December (12)
         // Assumes payroll data is only needed for this time period
@@ -366,17 +366,17 @@ public class MotorPHPayrollSystem {
 
             // FIRST CUTOFF (1st–15th of the month)
             // Get total hours worked during the first half of the month
-            double totalHours1 = getHours(empID[idx], m, 1, 15);
+            double totalHours1 = getHours(empID[index], m, 1, 15);
 
             // Gross pay is calculated as hours worked multiplied by hourly rate
-            double gross1 = totalHours1 * empRate[idx];
+            double gross1 = totalHours1 * empRate[index];
 
             // SECOND CUTOFF (16th–end of the month)
             // Captures remaining working days of the month
-            double totalHours2 = getHours(empID[idx], m, 16, 31);
+            double totalHours2 = getHours(empID[index], m, 16, 31);
 
             // Compute gross pay for second cutoff
-            double gross2 = totalHours2 * empRate[idx];
+            double gross2 = totalHours2 * empRate[index];
 
             // Combine both cutoffs to get total monthly gross income
             double totalGross = gross1 + gross2;
@@ -400,12 +400,12 @@ public class MotorPHPayrollSystem {
     // Displays the basic personal details of the selected employee.
     // This serves as a header before showing payroll records,
     // so the user knows which employee the report belongs to.
-    public static void printEmployeeInfo(int idx) {
+    public static void printEmployeeInfo(int index) {
 
         System.out.println("\n****************************************");
-        System.out.println("Employee #: " + empID[idx]);   // Unique employee identifier
-        System.out.println("Name: " + empName[idx]);       // Full name of employee
-        System.out.println("Birthday: " + empBday[idx]);   // Used for identity/reference
+        System.out.println("Employee #: " + empID[index]);   // Unique employee identifier
+        System.out.println("Name: " + empName[index]);       // Full name of employee
+        System.out.println("Birthday: " + empBday[index]);   // Used for identity/reference
     }
 
     // ----------------------------
@@ -497,9 +497,6 @@ public class MotorPHPayrollSystem {
 
                     // Enforce official working hours (8:00 AM – 5:00 PM)
                     // This prevents counting overtime or early logins
-                    if (timeIn < 8.0) {
-                        timeIn = 8.0;
-                    }
                     if (timeOut > 17.0) {
                         timeOut = 17.0;
                     }
