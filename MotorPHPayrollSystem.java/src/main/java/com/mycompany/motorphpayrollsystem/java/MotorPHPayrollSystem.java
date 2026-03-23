@@ -347,7 +347,7 @@ public class MotorPHPayrollSystem {
         // Return all computed values for use in payroll breakdown and reporting
         return new double[]{sss, phil, pagibig, tax, totalDed};
     }
-   
+
     
     // ================================================================
     // PAYROLL PROCESSING
@@ -355,43 +355,58 @@ public class MotorPHPayrollSystem {
     // This method handles the full payroll computation for a single employee.
     // It processes salaries month-by-month and splits each month into two cutoffs
     // (1–15 and 16–end), which is a common payroll structure.
+    
+    //Main entry point for payroll (already exists)
     public static void processPayroll(int index) {
 
-        // Display basic employee details before showing payroll breakdown
+        // Print basic employee details as header before showing payroll breakdown.
         printEmployeeInfo(index);
 
-        // Loop through months June (6) to December (12)
-        // Assumes payroll data is only needed for this time period
+        // Delegate looping through months (June to December) to a dedicated method.
+        processPayrollByMonths(index);
+    }
+    
+    // ----------------------------
+    // MONTH LOOP
+    // ----------------------------
+    // Loops through payroll months (June to December).
+    public static void processPayrollByMonths(int index) {
+        
+        // Loops through payroll months (June to December).
         for (int m = 6; m <= 12; m++) {
-
-            // FIRST CUTOFF (1st–15th of the month)
-            // Get total hours worked during the first half of the month
-            double totalHours1 = getHours(empID[index], m, 1, 15);
-
-            // Gross pay is calculated as hours worked multiplied by hourly rate
-            double gross1 = totalHours1 * empRate[index];
-
-            // SECOND CUTOFF (16th–end of the month)
-            // Captures remaining working days of the month
-            double totalHours2 = getHours(empID[index], m, 16, 31);
-
-            // Compute gross pay for second cutoff
-            double gross2 = totalHours2 * empRate[index];
-
-            // Combine both cutoffs to get total monthly gross income
-            double totalGross = gross1 + gross2;
-
-            // Deductions are calculated based on total monthly gross,
-            // since government contributions and taxes are applied monthly
-            double[] deductions = calculateDeductions(totalGross);
-
-            // Print breakdown for first cutoff (usually no deductions applied yet)
-            printFirstCutoff(m, totalHours1, gross1);
-
-            // Print second cutoff including all deductions and final net pay
-            // Deductions are applied here to reflect the full monthly adjustment
-            printSecondCutoff(m, totalHours2, gross2, deductions);
+            
+            // Process payroll for one specific month.
+            // Handles cutoff splits, gross pay, and deductions.
+            processPayrollForMonth(index, m);
         }
+    }
+    
+    // ----------------------------
+    // PAYROLL COMPUTATIONS
+    // ----------------------------
+    // Handles all payroll computations in one month computation.
+    public static void processPayrollForMonth(int index, int month) {
+
+        // FIRST CUTOFF: Days 1–15
+        double totalHours1 = getHours(empID[index], month, 1, 15); // Calculate total hours worked
+        double gross1 = totalHours1 * empRate[index]; // Compute gross pay (hours * rate)
+
+        // SECOND CUTOFF: Days 16-31
+        double totalHours2 = getHours(empID[index], month, 16, 31); // Calculates remaining hours
+        double gross2 = totalHours2 * empRate[index]; // Compute gross pay for second cutoff
+
+        // Combine first and second cutoff for total monthly gross pay.
+        double totalGross = gross1 + gross2;
+        
+        // Calculate government deductions based on total gross pay.
+        // Includes SSS, PhilHealth, Pag-IBIG, and income tax.
+        double[] deductions = calculateDeductions(totalGross);
+
+        // Print first cutoff details (no deductions applied).
+        printFirstCutoff(month, totalHours1, gross1);
+        
+        // Print second cutoff details including deductions and net pay.
+        printSecondCutoff(month, totalHours2, gross2, deductions);
     }
     
     // ----------------------------
@@ -528,12 +543,12 @@ public class MotorPHPayrollSystem {
     // ----------------------------
     // Converts time from "HH:MM" format into decimal hours.
     // This allows easier mathematical operations (e.g., 8:30 → 8.5).
-    public static double timeToDec(String t) {
+    public static double timeToDec(String time) {
 
-        String[] p = t.split(":"); // Separate hours and minutes
+        String[] parts = time.split(":"); // Separate hours and minutes
 
-        double hours = Double.parseDouble(p[0]);
-        double mins = Double.parseDouble(p[1]);
+        double hours = Double.parseDouble(parts[0]);
+        double mins = Double.parseDouble(parts[1]);
 
         // Convert minutes into fractional hours
         return hours + (mins / 60.0);
